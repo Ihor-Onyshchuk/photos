@@ -8,12 +8,15 @@ import {
   FETCH_STATISTIC_REQUEST,
   FETCH_STATISTIC_SUCCESS,
   FETCH_STATISTIC_FAILURE,
+  REMOVE_PHOTO,
 } from '../actions';
 
 const photos = (state = [], action) => {
   switch (action.type) {
     case FETCH_PHOTOS_SUCCESS:
       return action.result;
+    case REMOVE_PHOTO:
+      return state.filter(({ id }) => id !== action.id);
     default:
       return state;
   }

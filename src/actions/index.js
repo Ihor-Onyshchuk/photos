@@ -8,6 +8,8 @@ export const FETCH_STATISTIC_REQUEST = 'FETCH_STATISTIC_REQUEST';
 export const FETCH_STATISTIC_SUCCESS = 'FETCH_STATISTIC_SUCCESS';
 export const FETCH_STATISTIC_FAILURE = 'FETCH_STATISTIC_FAILURE';
 
+export const REMOVE_PHOTO = 'REMOVE_PHOTO';
+
 const fetchPhotosRequest = () => ({
   type: FETCH_PHOTOS_REQUEST
 });
@@ -64,3 +66,8 @@ export const fetchStatistic = (id) => (dispatch, getState) => {
     })
     .catch(() => dispatch(fetchStatisticFailure()))
 };
+
+export const removePhoto = (id) => ({
+  type: REMOVE_PHOTO,
+  id
+});

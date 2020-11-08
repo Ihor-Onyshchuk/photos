@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPhotos, fetchStatistic } from '../actions';
+import { fetchPhotos, fetchStatistic, removePhoto } from '../actions';
 
-const App = ({ photos, statistic, onFetchPhotos, onFetchStatistic, }) => {
+const App = ({ photos, statistic, onFetchPhotos, onFetchStatistic, onRemovePhoto }) => {
+  const handleDelete = (photoId) => {
+    onRemovePhoto(photoId)
+  };
+
   return (
     <div>
       <ul>
@@ -13,7 +17,7 @@ const App = ({ photos, statistic, onFetchPhotos, onFetchStatistic, }) => {
               <div>author: {user.name}</div>
               <div>description: {description}</div>
               <button onClick={() => onFetchStatistic(id)}>View Statistics</button>
-              <button>Remove</button>
+              <button onClick={() => handleDelete(id)}>Remove</button>
             </div>
           </li>
         ))}
@@ -32,7 +36,8 @@ const mapStateToProps = ({ photos, statistic, photosSettings, statisticSettings 
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchPhotos: () => dispatch(fetchPhotos()),
-  onFetchStatistic: (id) => dispatch(fetchStatistic(id))
+  onFetchStatistic: (id) => dispatch(fetchStatistic(id)),
+  onRemovePhoto: (id) => dispatch(removePhoto(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
