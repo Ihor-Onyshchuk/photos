@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ACCSESS_KEY } from '../../access-key'
+import { ACCSESS_KEY } from '../access-key'
 
 const http = axios.create({
   baseURL: 'https://api.unsplash.com'
