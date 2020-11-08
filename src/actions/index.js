@@ -1,27 +1,66 @@
-import { getPhotos } from "../api";
+import { getPhotos, getPhotoStatistic } from "../api";
 
-export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
-export const FETCH_DATA_FAILURE = 'FETCH_DATA_FAILURE';
-export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
+export const FETCH_PHOTOS_REQUEST = 'FETCH_PHOTOS_REQUEST';
+export const FETCH_PHOTOS_FAILURE = 'FETCH_PHOTOS_FAILURE';
+export const FETCH_PHOTOS_SUCCESS = 'FETCH_PHOTOS_SUCCESS';
 
-const fetchDataRequest = () => ({
-  type: FETCH_DATA_REQUEST
+export const FETCH_STATISTIC_REQUEST = 'FETCH_STATISTIC_REQUEST';
+export const FETCH_STATISTIC_SUCCESS = 'FETCH_STATISTIC_SUCCESS';
+export const FETCH_STATISTIC_FAILURE = 'FETCH_STATISTIC_FAILURE';
+
+const fetchPhotosRequest = () => ({
+  type: FETCH_PHOTOS_REQUEST
 });
 
-const fetchDataFailure = () => ({
-  type: FETCH_DATA_FAILURE,
+const fetchPhotosFailure = () => ({
+  type: FETCH_PHOTOS_FAILURE,
 });
 
-const fetchDataSuccess = (result) => ({
-  type: FETCH_DATA_SUCCESS,
+const fetchPhotosSuccess = (result) => ({
+  type: FETCH_PHOTOS_SUCCESS,
   result,
 });
 
-export const fetchData = () => (dispatch) => {
-  dispatch(fetchDataRequest());
+export const fetchPhotos = () => (dispatch) => {
+  dispatch(fetchPhotosRequest());
   getPhotos()
     .then((response) => {
-      dispatch(fetchDataSuccess(response.data || []))
+      dispatch(fetchPhotosSuccess(response.data || []))
     })
-    .catch(() => dispatch(fetchDataFailure()))
+    .catch(() => dispatch(fetchPhotosFailure()))
+};
+
+const fetchStatisticRequest = () => ({
+  type: FETCH_STATISTIC_REQUEST
+});
+
+const fetchStatisticSuccess = (result) => ({
+  type: FETCH_STATISTIC_SUCCESS,
+  result
+});
+
+const fetchStatisticFailure = () => ({
+  type: FETCH_STATISTIC_FAILURE
+});
+
+export const fetchStatistic = (id) => (dispatch, getState) => {
+  const { statistic } = getState();
+
+  if (statistic[id]) {
+    return statistic[id];
+  }
+
+  dispatch(fetchStatisticRequest());
+  getPhotoStatistic(id)
+    .then(({ data }) => {
+      const mappedResponse = {
+        [id]: {
+          downloads: data?.downloads?.total,
+          likes: data?.likes?.total,
+          views: data?.views?.total,
+        }
+      };
+      dispatch(fetchStatisticSuccess(mappedResponse))
+    })
+    .catch(() => dispatch(fetchStatisticFailure()))
 };

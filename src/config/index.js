@@ -1,9 +1,4 @@
-export const dataSettings = {
+export const defaultSettings = {
   loading: false,
   error: false,
-};
-
-export const initialState = {
-  data: [],
-  dataSettings,
 };

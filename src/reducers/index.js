@@ -1,35 +1,62 @@
 import { combineReducers } from 'redux';
 
+import { defaultSettings } from '../config';
 import {
-  FETCH_DATA_REQUEST,
-  FETCH_DATA_SUCCESS,
-  FETCH_DATA_FAILURE,
+  FETCH_PHOTOS_REQUEST,
+  FETCH_PHOTOS_SUCCESS,
+  FETCH_PHOTOS_FAILURE,
+  FETCH_STATISTIC_REQUEST,
+  FETCH_STATISTIC_SUCCESS,
+  FETCH_STATISTIC_FAILURE,
 } from '../actions';
-import { dataSettings as defaultDataSettings } from '../config';
 
-const data = (state = [], action) => {
+const photos = (state = [], action) => {
   switch (action.type) {
-    case FETCH_DATA_REQUEST:
+    case FETCH_PHOTOS_SUCCESS:
       return action.result;
     default:
       return state;
   }
-}
+};
 
-const dataSettings = (state = defaultDataSettings, action) => {
+const statistic = (state = {}, action) => {
   switch (action.type) {
-    case FETCH_DATA_REQUEST:
-      return { loading: true, error: false };
-    case FETCH_DATA_SUCCESS:
-      return { loading: false, error: false };
-    case FETCH_DATA_FAILURE:
-      return { loading: false, error: true }
+    case FETCH_STATISTIC_SUCCESS:
+      return { ...state, ...action.result };
     default:
       return state;
   }
 }
 
+const photosSettings = (state = defaultSettings, action) => {
+  switch (action.type) {
+    case FETCH_PHOTOS_REQUEST:
+      return { loading: true, error: false };
+    case FETCH_PHOTOS_SUCCESS:
+      return { loading: false, error: false };
+    case FETCH_PHOTOS_FAILURE:
+      return { loading: false, error: true }
+    default:
+      return state;
+  }
+};
+
+const statisticSettings = (state = defaultSettings, action) => {
+  switch (action.type) {
+    case FETCH_STATISTIC_REQUEST:
+      return { loading: true, error: false };
+    case FETCH_STATISTIC_SUCCESS:
+      return { loading: false, error: false };
+    case FETCH_STATISTIC_FAILURE:
+      return { loading: false, error: true }
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
-  data,
-  dataSettings
-})
+  photos,
+  statistic,
+  photosSettings,
+  statisticSettings,
+});

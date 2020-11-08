@@ -1,34 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions';
+import { fetchPhotos, fetchStatistic } from '../actions';
 
-const App = ({ data, onFetchData }) => {
+const App = ({ photos, statistic, onFetchPhotos, onFetchStatistic, }) => {
   return (
     <div>
       <ul>
-        {data.map(({ id, user, description, alt_description, urls }) => (
+        {photos.map(({ id, user, description, alt_description, urls }) => (
           <li key={id}>
             <div>
               <img src={urls.thumb} alt={alt_description} />
               <div>author: {user.name}</div>
               <div>description: {description}</div>
-              <button>View Statistic</button>
+              <button onClick={() => onFetchStatistic(id)}>View Statistics</button>
               <button>Remove</button>
             </div>
           </li>
         ))}
       </ul>
-      <button onClick={() => onFetchData()}>get photos</button>
+      <button onClick={() => onFetchPhotos()}>get photos</button>
     </div>
   );
 };
 
-const mapStateToProps = ({ data }) => ({
-  data
+const mapStateToProps = ({ photos, statistic, photosSettings, statisticSettings }) => ({
+  photos,
+  statistic,
+  photosSettings,
+  statisticSettings
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchData: () => dispatch(fetchData()),
+  onFetchPhotos: () => dispatch(fetchPhotos()),
+  onFetchStatistic: (id) => dispatch(fetchStatistic(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
