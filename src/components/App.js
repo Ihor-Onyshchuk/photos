@@ -1,43 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPhotos, fetchStatistic, removePhoto } from '../actions';
+import {
+  fetchPhotos,
+  modalClose,
+} from '../actions';
+import '../index.scss';
+import Modal from './Modal/Modal';
+import PhotoInfo from './PhotoInfo';
+import PhotoList from './PhotoList';
 
-const App = ({ photos, statistic, onFetchPhotos, onFetchStatistic, onRemovePhoto }) => {
-  const handleDelete = (photoId) => {
-    onRemovePhoto(photoId)
-  };
+const App = (props) => {
+  const {
+    modal,
+    statisticSettings,
+    photosSettings,
+    onFetchPhotos,
+    onModalClose,
+  } = props;
 
   return (
-    <div>
-      <ul>
-        {photos.map(({ id, user, description, alt_description, urls }) => (
-          <li key={id}>
-            <div>
-              <img src={urls.thumb} alt={alt_description} />
-              <div>author: {user.name}</div>
-              <div>description: {description}</div>
-              <button onClick={() => onFetchStatistic(id)}>View Statistics</button>
-              <button onClick={() => handleDelete(id)}>Remove</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => onFetchPhotos()}>get photos</button>
-    </div>
+    <>
+      <div className="container">
+        {photosSettings.loading && <div>Loading...</div>}
+        {photosSettings.error && <div>Something go wrong</div>}
+        <div className="card-columns py-3">
+          <PhotoList />
+        </div>
+        <button onClick={() => onFetchPhotos()}>
+          get photos
+        </button>
+      </div>
+      {modal && (
+        <Modal
+          isOpen={modal}
+          onClose={onModalClose}
+          loading={statisticSettings.loading}
+        >
+          <PhotoInfo />
+        </Modal>
+      )}
+    </>
   );
 };
 
-const mapStateToProps = ({ photos, statistic, photosSettings, statisticSettings }) => ({
-  photos,
-  statistic,
+const mapStateToProps = ({
+  modal,
+  photosSettings,
+  statisticSettings
+}) => ({
+  modal,
   photosSettings,
   statisticSettings
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchPhotos: () => dispatch(fetchPhotos()),
-  onFetchStatistic: (id) => dispatch(fetchStatistic(id)),
-  onRemovePhoto: (id) => dispatch(removePhoto(id))
+  onModalClose: () => dispatch(modalClose())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

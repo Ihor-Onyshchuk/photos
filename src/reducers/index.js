@@ -9,6 +9,9 @@ import {
   FETCH_STATISTIC_SUCCESS,
   FETCH_STATISTIC_FAILURE,
   REMOVE_PHOTO,
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  GET_CURRENT_PHOTO,
 } from '../actions';
 
 const photos = (state = [], action) => {
@@ -57,9 +60,31 @@ const statisticSettings = (state = defaultSettings, action) => {
   }
 };
 
+const modal = (state = false, action) => {
+  switch (action.type) {
+    case OPEN_MODAL:
+      return true;
+    case CLOSE_MODAL:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const currentPhoto = (state = {}, action) => {
+  switch (action.type) {
+    case GET_CURRENT_PHOTO:
+      return action.result;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
+  modal,
   photos,
   statistic,
+  currentPhoto,
   photosSettings,
   statisticSettings,
 });

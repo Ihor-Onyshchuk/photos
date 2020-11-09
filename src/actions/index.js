@@ -10,6 +10,11 @@ export const FETCH_STATISTIC_FAILURE = 'FETCH_STATISTIC_FAILURE';
 
 export const REMOVE_PHOTO = 'REMOVE_PHOTO';
 
+export const OPEN_MODAL = 'OPEN_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
+export const GET_CURRENT_PHOTO = 'GET_CURRENT_PHOTO';
+
 const fetchPhotosRequest = () => ({
   type: FETCH_PHOTOS_REQUEST
 });
@@ -71,3 +76,16 @@ export const removePhoto = (id) => ({
   type: REMOVE_PHOTO,
   id
 });
+
+export const modalOpen = () => ({
+  type: OPEN_MODAL,
+});
+
+export const modalClose = () => ({
+  type: CLOSE_MODAL,
+});
+
+export const getCurrentPhoto = (result) => ({
+  type: GET_CURRENT_PHOTO,
+  result
+})
