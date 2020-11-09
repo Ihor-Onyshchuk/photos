@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchPhotos,
-  modalClose,
-} from '../actions';
-import '../index.scss';
+
 import Modal from './Modal/Modal';
 import PhotoInfo from './PhotoInfo';
 import PhotoList from './PhotoList';
+import '../index.scss';
+import {
+  closeModal,
+  fetchPhotos,
+} from '../actions';
 
 const App = (props) => {
   const {
@@ -55,7 +56,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchPhotos: () => dispatch(fetchPhotos()),
-  onModalClose: () => dispatch(modalClose())
+  onModalClose: () => dispatch(closeModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

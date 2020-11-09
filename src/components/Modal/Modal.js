@@ -10,7 +10,7 @@ const Modal = ({ isOpen, onClose, loading, children, className }) => {
   return createPortal(
     <div className={cx('modal', { 'd-block': isOpen }, className)}>
       <div className="modal-backdrop" onClick={handleModalClose} />
-      <div className="modal-content bg-light">
+      <div className="modal-content">
         <button
           type="button"
           className="close close-modal"

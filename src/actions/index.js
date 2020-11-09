@@ -12,6 +12,8 @@ export const REMOVE_PHOTO = 'REMOVE_PHOTO';
 
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const OPEN_CONFIRM_MODAL = 'OPEN_CONFIRM_MODAL';
+export const CLOSE_CONFIRM_MODAL = 'CLOSE_CONFIRM_MODAL';
 
 export const GET_CURRENT_PHOTO = 'GET_CURRENT_PHOTO';
 
@@ -77,12 +79,20 @@ export const removePhoto = (id) => ({
   id
 });
 
-export const modalOpen = () => ({
+export const openModal = () => ({
   type: OPEN_MODAL,
 });
 
-export const modalClose = () => ({
+export const closeModal = () => ({
   type: CLOSE_MODAL,
+});
+
+export const openConfirmModal = () => ({
+  type: OPEN_CONFIRM_MODAL,
+});
+
+export const closeConfirmModal = () => ({
+  type: CLOSE_CONFIRM_MODAL,
 });
 
 export const getCurrentPhoto = (result) => ({

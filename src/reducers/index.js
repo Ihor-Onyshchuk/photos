@@ -12,6 +12,8 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   GET_CURRENT_PHOTO,
+  OPEN_CONFIRM_MODAL,
+  CLOSE_CONFIRM_MODAL,
 } from '../actions';
 
 const photos = (state = [], action) => {
@@ -71,6 +73,17 @@ const modal = (state = false, action) => {
   }
 };
 
+const confirmModal = (state = false, action) => {
+  switch (action.type) {
+    case OPEN_CONFIRM_MODAL:
+      return true;
+    case CLOSE_CONFIRM_MODAL:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const currentPhoto = (state = {}, action) => {
   switch (action.type) {
     case GET_CURRENT_PHOTO:
@@ -84,6 +97,7 @@ export default combineReducers({
   modal,
   photos,
   statistic,
+  confirmModal,
   currentPhoto,
   photosSettings,
   statisticSettings,
