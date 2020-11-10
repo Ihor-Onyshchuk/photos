@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Modal from './Modal/Modal';
-import PhotoInfo from './PhotoInfo';
-import PhotoList from './PhotoList';
-import '../index.scss';
+import Modal from '../Modal/Modal';
+import PhotoInfo from '../PhotoInfo';
+import PhotoList from '../PhotoList';
 import {
   closeConfirmModal,
   closeModal,
@@ -12,18 +11,10 @@ import {
   getCurrentPhoto,
   openConfirmModal,
   removePhoto,
-} from '../actions';
-import ConfirmModal from './ConfirmModal';
-
-const preventBodyScroll = (condition) => {
-  let body = document.querySelector('body');
-
-  if (condition) {
-    body.classList.add('no-scroll');
-  } else {
-    body.classList.remove('no-scroll');
-  }
-}
+} from '../../actions';
+import ConfirmModal from '../ConfirmModal';
+import { preventBodyScroll } from '../../utils';
+import '../../assets/scss/main.scss';
 
 const App = (props) => {
   const {
@@ -40,14 +31,13 @@ const App = (props) => {
     onConfirmModalClose,
     onRemovePhoto,
   } = props;
+  const isModal = modal || confirmModal;
+
+  preventBodyScroll(isModal);
 
   useEffect(() => {
     onFetchPhotos()
   }, []);
-
-  const isModal = modal || confirmModal;
-
-  preventBodyScroll(isModal);
 
   const handleConfirmModal = (id) => {
     const currentPhoto = photos.find(photo => id === photo.id);
@@ -57,7 +47,7 @@ const App = (props) => {
   }
 
   const handlePhotoDelete = () => {
-    onRemovePhoto(currentPhoto.id);
+    onRemovePhoto(currentPhoto.id); // also you can remove photo from your user collection by REST
     onConfirmModalClose();
   }
 

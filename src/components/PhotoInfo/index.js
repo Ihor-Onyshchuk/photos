@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const PhotoInfo = ({ statistic, currentPhoto }) => {
+const PhotoInfo = ({ statistic, currentPhoto, statisticSettings }) => {
   const { id, urls, alt_description, user, description } = currentPhoto;
+  const { loading, error } = statisticSettings;
   const { downloads, likes, views } = statistic[id] ?? 0;
+
+  const isStatistic = !loading && !error;
 
   return (
     <div className="card">
@@ -24,9 +27,15 @@ const PhotoInfo = ({ statistic, currentPhoto }) => {
               </p>)}
             <div className="card-text">
               <h6>Statistic:</h6>
-              <div>downloads: {downloads}</div>
-              <div>likes: {likes}</div>
-              <div>views: {views}</div>
+              {isStatistic && (
+                <>
+                  <div>downloads: {downloads}</div>
+                  <div>likes: {likes}</div>
+                  <div>views: {views}</div>
+                </>
+              )}
+              {loading && <div>Loading...</div>}
+              {error && <div>Something go wrong</div>}
             </div>
           </div>
         </div>
@@ -35,9 +44,14 @@ const PhotoInfo = ({ statistic, currentPhoto }) => {
   );
 };
 
-const mapStateToProps = ({ statistic, currentPhoto }) => ({
+const mapStateToProps = ({
   statistic,
   currentPhoto,
+  statisticSettings
+}) => ({
+  statistic,
+  currentPhoto,
+  statisticSettings,
 })
 
 export default connect(mapStateToProps)(PhotoInfo);
