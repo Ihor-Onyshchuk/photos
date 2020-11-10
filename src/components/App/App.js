@@ -47,7 +47,8 @@ const App = (props) => {
   }
 
   const handlePhotoDelete = () => {
-    onRemovePhoto(currentPhoto.id); // also you can remove photo from your user collection by REST
+    // Also, you can remove a photo from your collection by REST, using user auth
+    onRemovePhoto(currentPhoto.id);
     onConfirmModalClose();
   }
 
