@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Alert from '../Alert';
 
 const PhotoInfo = ({ statistic, currentPhoto, statisticSettings }) => {
   const { id, urls, alt_description, user, description } = currentPhoto;
@@ -27,6 +28,8 @@ const PhotoInfo = ({ statistic, currentPhoto, statisticSettings }) => {
               </p>)}
             <div className="card-text">
               <h6>Statistic:</h6>
+              {loading && <div>Loading...</div>}
+              {error && <Alert type="danger" text="Something go wrong!" />}
               {isStatistic && (
                 <>
                   <div>downloads: {downloads}</div>
@@ -34,8 +37,6 @@ const PhotoInfo = ({ statistic, currentPhoto, statisticSettings }) => {
                   <div>views: {views}</div>
                 </>
               )}
-              {loading && <div>Loading...</div>}
-              {error && <div>Something go wrong</div>}
             </div>
           </div>
         </div>
