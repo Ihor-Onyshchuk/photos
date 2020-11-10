@@ -13,5 +13,5 @@ export const getPhotos = () => (
 );
 
 export const getPhotoStatistic = (photoId) => (
-  http.get(`/photoss/${photoId}/statistics`)
+  http.get(`/photos/${photoId}/statistics`)
 );

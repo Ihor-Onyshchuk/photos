@@ -12,8 +12,9 @@ import {
   openConfirmModal,
   removePhoto,
 } from '../../actions';
-import ConfirmModal from '../ConfirmModal';
 import Alert from '../Alert';
+import ConfirmModal from '../ConfirmModal';
+import LoadingIndicator from '../LoadingIndicator';
 import { preventBodyScroll } from '../../utils';
 import '../../assets/scss/main.scss';
 
@@ -56,7 +57,7 @@ const App = (props) => {
   return (
     <>
       <div className="container">
-        {photosSettings.loading && <div>Loading...</div>}
+        {photosSettings.loading && <LoadingIndicator />}
         {photosSettings.error && <Alert type="danger" text="Something go wrong!" />}
         <div className="card-columns py-3">
           <PhotoList handleConfirmModal={handleConfirmModal} />
