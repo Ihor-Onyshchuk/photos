@@ -1,0 +1,56 @@
+@import '~bootstrap';
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.card-buttons {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(189, 186, 186, 0.7);
+
+  button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.card-columns {
+  .photo-card {
+    cursor: pointer;
+
+    &:hover .card-buttons {
+      visibility: unset;
+    }
+  }
+}
+
+.card-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  border: none;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+}
